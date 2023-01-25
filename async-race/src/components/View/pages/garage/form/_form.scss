@@ -1,19 +1,42 @@
 .form {
   display: flex;
-  width: 385px;
+  max-width: 394px;
+  width: 100%;
   flex-wrap: wrap;
+  align-items: center;
+
+  @media (max-width: 450px) {
+    max-width: 300px;
+    justify-content: center;
+    gap: 5px;
+  }
+
   &__name {
     margin-right: 10px;
+    margin-left: 15px;
+    width: 195px;
     margin-bottom: 10px;
     border-radius: 15px;
     padding: 5px;
-    height: 25px;
+    padding-left: 10px;
+    height: 35px;
+    border: 2px solid #3647df;
+
+    @media (max-width: 450px) {
+      width: 100%;
+    }
+
+    &:focus {
+      box-shadow: 0 0 10px #fffb05;
+    }
   }
+
   &__btns {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
   }
+
   &__btn-racing--cars {
     display: flex;
     justify-content: space-around;
@@ -21,28 +44,29 @@
   }
 }
 
-
 .btn__create-car,
 .btn__update-car,
 .btn__race-all--car,
 .btn__reset-all--car,
 .btn__create-all--car {
-  font-size: 12px;
+  font-size: 14px;
   margin-left: 7px;
   padding: 10px;
-  width: 97px;
+  width: 110px;
   font-weight: bold;
-  background: #71d122;
-  color: #ff0000;
-  border: 1px solid #1900ff;
+  background: #226ed1;
+  color: #ffffff;
+  border: 1px solid #e0dfe7;
+  transition: background 0.2s linear, box-shadow 0.2s linear, color 0.2s linear;
+
   &:hover {
-    transition: background 0.2s linear, box-shadow 0.2s linear, color 0.2s linear;
     box-shadow: 0 0 10px #fff;
     color: #fff;
-    background: #000;
+    background: #383535;
   }
-  &:disabled{
-    background: #000;
-    pointer-events:none;
+
+  &:disabled {
+    background: #383535;
+    pointer-events: none;
   }
 }

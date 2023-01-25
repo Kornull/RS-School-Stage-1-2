@@ -1,6 +1,7 @@
 .navigate__btns{
   position: absolute;
   top: 10px;
+  left: 30px;
   display: flex;
   width: 100px;
   margin-bottom: 25px;
@@ -10,7 +11,7 @@
   display: block;
   padding: 15px;
   font-size: 20px;
-  background: #d6d944;
+  background: #7f0cdd;
   &__garage,
   &__win {
     font-family: "Roboto", sans-serif;
@@ -21,18 +22,18 @@
     margin: 0 auto;
     margin-top: 15px;
     margin-right: 10px;
-    background: #69a53d48;
-    color: #7575ff;
+    background: #0b9afaef;
+    color: #ffffff;
     border-radius: 15px;
     border: 1px solid #000;
     border: 1px solid #f2ff00;
+    transition: color .2s linear,
+    box-shadow, .2s linear,
+    background, .2s linear;
     &:hover {
-      transition: color .2s linear,
-      box-shadow, .2s linear,
-      background, .2s linear;
       box-shadow: 0 0 15px #c4ee5b;
-      color: #ff0000;
-      background: #48ff00;
+      color: #ffffff;
+      background: #474b45;
     }
     &:disabled {
       background: #000;
