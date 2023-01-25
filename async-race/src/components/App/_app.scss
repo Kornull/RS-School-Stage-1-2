@@ -1,4 +1,12 @@
 body {
-  padding: 20px;
-  background: #000;
+  background-color: #000;
+  background-image: url('../../img/avto-gonki-sport-transport-32572.jpeg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 };
+
+#root {
+  background: #000000ce;
+  min-height: 100vh;
+}

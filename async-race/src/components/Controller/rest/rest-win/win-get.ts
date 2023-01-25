@@ -12,7 +12,6 @@ export const returnWinners = async (): Promise<Winners[]> => {
   const response = await fetch(`${Urls.winners}`);
   const res: Winners[] = await response.json();
   if (countWinnersCars !== null) countWinnersCars.innerHTML = `Cars ${res.length}`;
-  // });
   return res;
 };
 

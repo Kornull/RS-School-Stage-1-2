@@ -3,9 +3,11 @@ import { CarsAttribute, Urls } from '../../../../types/types';
 import { updateCars } from '../../../../View/pages/garage/car/createCars';
 import { inputUpdateCarName } from '../../../../templates/input';
 
+import { METHOD } from '../../types/types';
+
 export const getUpdateCard = async (id: number, body: CarsAttribute): Promise<void> => {
   await fetch(`${Urls.garage}/${id}`, {
-    method: 'PUT',
+    method: METHOD.PUT,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -37,9 +39,6 @@ export const updateInput = (): void => {
   obg.id = id;
   if (id !== 0) {
     getUpdateCard(id, obg);
-  } else {
-    // eslint-disable-next-line no-alert
-    alert('The car is no longer here.');
   }
   inputName.value = '';
 };

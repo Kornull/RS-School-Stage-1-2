@@ -4,12 +4,12 @@ import { garageLink } from '../View/pages/garage/garage';
 import { getWinnerTable } from '../View/pages/winners/winner';
 
 export async function App() {
-  const body = <HTMLElement>document.querySelector('body');
+  const root = <HTMLElement>document.querySelector('#root');
   const form: HTMLElement = await garageLink();
   const win = await getWinnerTable();
-  body.appendChild(form);
-  body.appendChild(win);
-  body.appendChild(btnPage());
+  root.appendChild(form);
+  root.appendChild(win);
+  root.appendChild(btnPage());
 
-  return body;
+  return root;
 }

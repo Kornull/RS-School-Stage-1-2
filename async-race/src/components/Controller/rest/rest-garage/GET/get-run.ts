@@ -7,6 +7,12 @@ const str = (queryS: Key[] = []): string => {
   return '';
 };
 
+export const getCountCarsPage = async (queryString: string): Promise<CarsAttribute[]> => {
+  const response: Response = await fetch(`${Urls.garage}${queryString}`);
+
+  return response.json();
+};
+
 export const getPAge = async (num: number): Promise<CarsAttribute[]> => {
   const page: Key = {
     key: '_page',
@@ -17,14 +23,7 @@ export const getPAge = async (num: number): Promise<CarsAttribute[]> => {
     value: 7,
   };
   const queryStr: string = str([page, limit]);
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   return getCountCarsPage(queryStr);
-};
-
-export const getCountCarsPage = async (queryString: string): Promise<CarsAttribute[]> => {
-  const response: Response = await fetch(`${Urls.garage}${queryString}`);
-
-  return response.json();
 };
 
 export const getCountAllCars = async (): Promise<CarsAttribute[]> => {

@@ -3,6 +3,7 @@ import { Interval, Speed, StartStopPosition, Urls, Winners } from '../../types/t
 import { setWinnerTable } from '../../View/pages/winners/winner';
 import { setWinnerCar } from '../rest/rest-win/post-win/win-post';
 import { returnWinners } from '../rest/rest-win/win-get';
+import { METHOD } from '../rest/types/types';
 
 let countRace: number[] = [];
 let countErr: number[] = [];
@@ -33,7 +34,7 @@ export const winner = async (time: string, carId: number): Promise<void> => {
 export const preStopCar = async (id: number): Promise<void> => {
   const car = document.querySelector(`#car-${id}`) as HTMLElement;
   await fetch(`${Urls.engine}/?id=${id}&status=stopped`, {
-    method: 'PATCH',
+    method: METHOD.PATCH,
   })
     .then(() => {
       cancelAnimationFrame(interval[id]);
@@ -44,7 +45,7 @@ export const preStopCar = async (id: number): Promise<void> => {
 
 const stopCar = async (id: number): Promise<void> => {
   await fetch(`${Urls.engine}/?id=${id}&status=stopped`, {
-    method: 'PATCH',
+    method: METHOD.PATCH,
   }).catch((er) => er);
 };
 
@@ -77,7 +78,7 @@ async function animation(widthRoad: number, id: number, duration: number): Promi
 const driveCar = async (widthRoad: number, id: number, duration: number): Promise<void> => {
   animation(widthRoad, id, duration);
   await fetch(`${Urls.engine}/?id=${id}&status=drive`, {
-    method: 'PATCH',
+    method: METHOD.PATCH,
   })
     .then(() => {
       cancelAnimationFrame(interval[id]);
@@ -88,7 +89,7 @@ const driveCar = async (widthRoad: number, id: number, duration: number): Promis
 
 export const getStartOneRace = async (id: number, str: string): Promise<void> => {
   await fetch(`${Urls.engine}/?id=${id}&status=${str}`, {
-    method: 'PATCH',
+    method: METHOD.PATCH,
   })
     .then((res) => res.json())
     .then((re: Speed) => {

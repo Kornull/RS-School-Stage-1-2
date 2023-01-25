@@ -1,10 +1,11 @@
 import { CarsAttribute, CountCars, Urls } from '../../../../types/types';
 import { carName, carModel, colorChar } from '../../../../templates/cars-charters';
+import { METHOD } from '../../types/types';
 
 const getNewCar = async (objCar: CarsAttribute[]): Promise<void> => {
   objCar.forEach(async (car: CarsAttribute) => {
     await fetch(`${Urls.garage}`, {
-      method: 'POST',
+      method: METHOD.POST,
       headers: {
         'Content-Type': 'application/json',
       },

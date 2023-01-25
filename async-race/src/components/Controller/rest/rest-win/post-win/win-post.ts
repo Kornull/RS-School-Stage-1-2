@@ -1,9 +1,11 @@
 import { Winners, Urls } from '../../../../types/types';
 import { returnWinners } from '../win-get';
 
+import { METHOD } from '../../types/types';
+
 const getUpdateWin = async (objCar: Winners): Promise<void> => {
   await fetch(`${Urls.winners}`, {
-    method: 'POST',
+    method: METHOD.POST,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -13,7 +15,7 @@ const getUpdateWin = async (objCar: Winners): Promise<void> => {
 
 const getUpdateOldWin = async (win: Winners): Promise<void> => {
   await fetch(`${Urls.winners}/${win.id}`, {
-    method: 'PUT',
+    method: METHOD.PUT,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -25,13 +27,17 @@ export const setWinnerCar = async (win: Winners): Promise<void> => {
   const carList: Winners[] = await returnWinners();
   carList.forEach((carWin: Winners) => {
     if (carWin.id === win.id) {
+      const newWin: Winners = {
+        id: 0,
+        time: 0,
+        wins: 0,
+      };
       let num: number = carWin.wins;
       if (carWin.time < win.time) {
-        // eslint-disable-next-line no-param-reassign
-        win.time = carWin.time;
+        newWin.time = carWin.time;
       }
-      // eslint-disable-next-line no-param-reassign
-      win.wins = ++num;
+      newWin.id = win.id;
+      newWin.wins = ++num;
       getUpdateOldWin(win);
     }
   });

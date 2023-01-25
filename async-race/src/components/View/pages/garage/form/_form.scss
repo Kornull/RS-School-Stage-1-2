@@ -4,6 +4,7 @@
   width: 100%;
   flex-wrap: wrap;
   align-items: center;
+  padding-top: 90px;
 
   @media (max-width: 450px) {
     max-width: 300px;
@@ -27,7 +28,7 @@
     }
 
     &:focus {
-      box-shadow: 0 0 10px #fffb05;
+      box-shadow: 0 0 10px rgb(255, 251, 5);
     }
   }
 
@@ -68,5 +69,7 @@
   &:disabled {
     background: #383535;
     pointer-events: none;
+    color: #eeff00;
+    border-color: #eeff00;
   }
 }
