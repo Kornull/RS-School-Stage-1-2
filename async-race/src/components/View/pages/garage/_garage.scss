@@ -1,6 +1,5 @@
-
 #car-color,
-#car-color__update{
+#car-color__update {
   margin-bottom: 10px;
 }
 
@@ -9,7 +8,7 @@
   flex-direction: column;
   width: 250px;
   margin-bottom: 60px;
-  &__text{
+  &__text {
     width: 100px;
     margin: 0 auto;
     text-align: center;
@@ -24,7 +23,7 @@
     margin: 0 auto;
     margin-bottom: 10px;
   }
-  &__btn{
+  &__btn {
     display: block;
     margin: 0 auto;
     background: #65adc4;

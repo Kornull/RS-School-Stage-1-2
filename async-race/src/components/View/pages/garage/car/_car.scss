@@ -1,5 +1,4 @@
 .main {
-  min-height: 315px;
   max-height: 580px;
 }
 
@@ -36,8 +35,8 @@
   height: 80px;
 
   &__slider {
-    height: 580px;
     margin: 0 15px;
+    padding-bottom: 5px;
   }
 
   &::before {
