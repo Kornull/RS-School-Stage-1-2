@@ -32,19 +32,20 @@ export const winner = async (time: string, carId: number): Promise<void> => {
 
 export const preStopCar = async (id: number): Promise<void> => {
   const car = document.querySelector(`#car-${id}`) as HTMLElement;
-  const stopDrive = await fetch(`${Urls.engine}/?id=${id}&status=stopped`, {
+  await fetch(`${Urls.engine}/?id=${id}&status=stopped`, {
     method: 'PATCH',
-  });
-  if (stopDrive.status === 200) {
-    cancelAnimationFrame(interval[id]);
-    car.style.transform = `translateX(${StartStopPosition.startPos}px)`;
-  }
+  })
+    .then(() => {
+      cancelAnimationFrame(interval[id]);
+      car.style.transform = `translateX(${StartStopPosition.startPos}px)`;
+    })
+    .catch((er) => er);
 };
 
 const stopCar = async (id: number): Promise<void> => {
   await fetch(`${Urls.engine}/?id=${id}&status=stopped`, {
     method: 'PATCH',
-  });
+  }).catch((er) => er);
 };
 
 async function animation(widthRoad: number, id: number, duration: number): Promise<void> {
@@ -75,29 +76,29 @@ async function animation(widthRoad: number, id: number, duration: number): Promi
 
 const driveCar = async (widthRoad: number, id: number, duration: number): Promise<void> => {
   animation(widthRoad, id, duration);
-  const res = await fetch(`${Urls.engine}/?id=${id}&status=drive`, {
+  await fetch(`${Urls.engine}/?id=${id}&status=drive`, {
     method: 'PATCH',
-  });
-
-  if (res.status === 500) {
-    cancelAnimationFrame(interval[id]);
-    countErr.push(id);
-  }
+  })
+    .then(() => {
+      cancelAnimationFrame(interval[id]);
+      countErr.push(id);
+    })
+    .catch((er) => er);
 };
 
 export const getStartOneRace = async (id: number, str: string): Promise<void> => {
-  const response = await fetch(`${Urls.engine}/?id=${id}&status=${str}`, {
+  await fetch(`${Urls.engine}/?id=${id}&status=${str}`, {
     method: 'PATCH',
-  });
-
-  if (response.status === 200) {
-    const obj: Speed = await response.json();
-    const { velocity, distance } = obj;
-    const duration: number = Math.floor(distance / velocity / 1000);
-    const raceRoad = <HTMLDivElement>document.querySelector('.racing__slider');
-    const widthRoad: number = raceRoad.offsetWidth;
-    driveCar(widthRoad, id, duration);
-  }
+  })
+    .then((res) => res.json())
+    .then((re: Speed) => {
+      const { velocity, distance } = re;
+      const duration: number = Math.floor(distance / velocity / 1000);
+      const raceRoad = <HTMLDivElement>document.querySelector('.racing__slider');
+      const widthRoad: number = raceRoad.offsetWidth;
+      driveCar(widthRoad, id, duration);
+    })
+    .catch((er) => er);
 };
 
 export const getStopRacing = async (objCarsId: number[]): Promise<void> => {
