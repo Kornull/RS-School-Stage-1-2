@@ -1,5 +1,6 @@
 # kornull-JSFE2022Q1
-# News-api
+## News-api
+### Start instructions:
 
  + Clone this [repo](https://github.com/Kornull/RS-School-Stage-1-2/tree/news-api).
  + Go to downloaded folder: `$ cd async-race-api`.
