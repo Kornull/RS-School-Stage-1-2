@@ -1,6 +1,14 @@
 # kornull-JSFE2022Q1
 ## Async-race
 
+### Stack
+
++ Typescript
++ SCSS
++ Webpack
++ requestAnimationFrame
+
+### Details
 
 + spa
 + api calls to the server
@@ -12,12 +20,6 @@
 + mass rut
 + race on selected cars
 
-## Stack
-
-+ Typescript
-+ SCSS
-+ Webpack
-+ requestAnimationFrame
 
 ### Start instructions:
 
