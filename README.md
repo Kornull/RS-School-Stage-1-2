@@ -1,5 +1,8 @@
 # kornull-JSFE2022Q1
 ## News-api
+
+### Project migration from JavaScript to Typescript
+
 ### Start instructions:
 
  + Clone this [repo](https://github.com/Kornull/RS-School-Stage-1-2/tree/news-api).
