@@ -6,6 +6,6 @@
 ### Start instructions:
 
  + Clone this [repo](https://github.com/Kornull/News-API).
- + Go to downloaded folder: `$ cd news-JS-main`.
+ + Go to downloaded folder: `$ cd news-api`.
  + Install dependencies: `$ npm install`.
  + Start app: `$ npm start`.
