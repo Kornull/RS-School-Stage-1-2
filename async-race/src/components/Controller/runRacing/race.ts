@@ -54,10 +54,12 @@ async function animation(widthRoad: number, id: number, duration: number): Promi
   const start: number = new Date().getTime();
   const car = document.querySelector(`#car-${id}`) as HTMLElement;
   let startX: number | null = performance.now();
+
   const tick = (step: number): void => {
     if (!startX) startX = step;
     const progress = (step - startX) / duration;
     car.style.transform = `translateX(${Math.min(progress)}px)`;
+
     if (progress < widthRoad - StartStopPosition.stopPos) {
       interval[id] = requestAnimationFrame(tick);
     } else {
@@ -65,6 +67,7 @@ async function animation(widthRoad: number, id: number, duration: number): Promi
       cancelAnimationFrame(interval[id]);
       stopCar(id);
       countRace.push(id);
+
       if (btnRacing.classList.contains('run__race') && !btnRacing.classList.contains('close')) {
         const time: string = ((end - start) / 1000).toFixed(2);
         winner(time, id);
@@ -80,9 +83,11 @@ const driveCar = async (widthRoad: number, id: number, duration: number): Promis
   await fetch(`${Urls.engine}/?id=${id}&status=drive`, {
     method: METHOD.PATCH,
   })
-    .then(() => {
-      cancelAnimationFrame(interval[id]);
-      countErr.push(id);
+    .then((data) => {
+      if (data.status === 500) {
+        cancelAnimationFrame(interval[id]);
+        countErr.push(id);
+      }
     })
     .catch((er) => er);
 };
