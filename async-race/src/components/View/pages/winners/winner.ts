@@ -31,16 +31,18 @@ const winnerChar = async (carList: Winners[]) => {
     winName.className = 'win__name';
     winCount.className = 'win__count';
     winTime.className = 'win__time';
-    AllCarsPage.forEach((car: CarsAttribute) => {
-      if (car.id === winners[i].id) {
-        winCar.innerHTML = `<svg class="car__icon-win" fill="${car.color}" id="car-${car.id}">
+    if (AllCarsPage.length) {
+      AllCarsPage.forEach((car: CarsAttribute) => {
+        if (car.id === winners[i].id) {
+          winCar.innerHTML = `<svg class="car__icon-win" fill="${car.color}" id="car-${car.id}">
            <use xlink:href="./assets/img/car.svg#carview"></use>
          </svg>`;
-        winName.innerHTML = `${car.name}`;
-        winCount.innerHTML = `${winners[i].wins}`;
-        winTime.innerHTML = `${winners[i].time}`;
-      }
-    });
+          winName.innerHTML = `${car.name}`;
+          winCount.innerHTML = `${winners[i].wins}`;
+          winTime.innerHTML = `${winners[i].time}`;
+        }
+      });
+    }
     winCarDescr.appendChild(winNumber);
     winCarDescr.appendChild(winCar);
     winCarDescr.appendChild(winName);
@@ -76,9 +78,9 @@ export const setWinnerTable = async () => {
   } else {
     btnRight.removeAttribute('disabled');
   }
-  if (pageNum <= StartPage.startpage) {
+  if (pageNum <= StartPage.startPage) {
     btnLeft.setAttribute('disabled', 'disabled');
-    pageNum = StartPage.startpage;
+    pageNum = StartPage.startPage;
     countPAge.innerText = `${pageNum}`;
   } else {
     btnLeft.removeAttribute('disabled');

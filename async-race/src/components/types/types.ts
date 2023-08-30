@@ -49,7 +49,7 @@ export type Winners = {
 };
 
 export enum StartPage {
-  startpage = 1,
+  startPage = 1,
 }
 
 export enum CounterSort {

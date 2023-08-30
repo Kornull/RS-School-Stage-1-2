@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 import { updateInput } from '../../../../Controller/rest/rest-garage/PUT/put-run';
 import './_car.scss';
-import { getCountAllCars, getPAge } from '../../../../Controller/rest/rest-garage/GET/get-run';
+import { getCountAllCars, getPage } from '../../../../Controller/rest/rest-garage/GET/get-run';
 import { CarsAttribute, RaceCommand, StartPage } from '../../../../types/types';
 import { deleteCar } from '../../../../Controller/rest/rest-garage/DELETE/delete-run';
 import { inputUpdateCarColor, inputUpdateCarName } from '../../../../templates/input';
@@ -23,7 +23,7 @@ const addClass = (arrBlocks: HTMLElement[], carBlock: HTMLDivElement, color: str
 // eslint-disable-next-line max-len
 const btnClick = (race: HTMLDivElement, carBlock: HTMLDivElement, arrBlocks: HTMLElement[], color: string) => {
   race.addEventListener('click', (ev) => {
-    const upadetCar = <HTMLButtonElement>document.querySelector('#update-car');
+    const updateCar = <HTMLButtonElement>document.querySelector('#update-car');
 
     const runBtn = <HTMLButtonElement>race.querySelector('#run');
     const stopBtn = <HTMLButtonElement>race.querySelector('#stop');
@@ -31,7 +31,7 @@ const btnClick = (race: HTMLDivElement, carBlock: HTMLDivElement, arrBlocks: HTM
     switch (message.id) {
       case 'btn-select':
         addClass(arrBlocks, carBlock, color);
-        upadetCar.removeAttribute('disabled');
+        updateCar.removeAttribute('disabled');
         break;
       case 'btn-delete':
         addClass(arrBlocks, carBlock, color);
@@ -56,33 +56,53 @@ const btnClick = (race: HTMLDivElement, carBlock: HTMLDivElement, arrBlocks: HTM
 };
 
 const updateHasCar = (cars: CarsAttribute[]): HTMLElement => {
-  const arrBlocks: HTMLElement[] = [];
   const racingBlock = <HTMLElement>document.createElement('div');
-  racingBlock.className = 'racing__slider';
-  for (let i = 0; i < cars.length; i++) {
-    const race = <HTMLDivElement>document.createElement('div');
-    race.className = 'racing';
-    const carBlock: HTMLDivElement = document.createElement('div');
-    carBlock.innerHTML = `
-        <div class="car__action">
-        <button type="button" class="btn btn__select" id="btn-select">select</button>
-        <button type="button" class="btn btn__delete" id="btn-delete">delete</button>
-        <div class="car__name">${cars[i].name}</div>
-       </div>
-         <svg class="car__icon" fill="${cars[i].color}" id="car-${cars[i].id}">
-           <use xlink:href="./assets/img/car.svg#carview"></use>
-         </svg>`;
-    const { color } = cars[i];
-    carBlock.className = 'car';
-    carBlock.id = `${cars[i].id}`;
-    carBlock.title = `${cars[i].name}`;
-    carBlock.style.color = `${cars[i].color}`;
-    race.innerHTML = `${startStopBtns}${finishFlag}`;
-    race.appendChild(carBlock);
-    arrBlocks.push(carBlock);
-    racingBlock.appendChild(race);
+  if (cars.length) {
+    const arrBlocks: HTMLElement[] = [];
+    racingBlock.className = 'racing__slider';
+    for (let i = 0; i < cars.length; i++) {
+      const race = <HTMLDivElement>document.createElement('div');
+      race.className = 'racing';
+      const carBlock: HTMLDivElement = document.createElement('div');
+      carBlock.innerHTML = `
+          <div class="car__action">
+          <button type="button" class="btn btn__select" id="btn-select">select</button>
+          <button type="button" class="btn btn__delete" id="btn-delete">delete</button>
+          <div class="car__name">${cars[i].name}</div>
+         </div>
+           <svg class="car__icon" fill="${cars[i].color}" id="car-${cars[i].id}">
+             <use xlink:href="./assets/img/car.svg#carview"></use>
+           </svg>`;
+      const { color } = cars[i];
+      carBlock.className = 'car';
+      carBlock.id = `${cars[i].id}`;
+      carBlock.title = `${cars[i].name}`;
+      carBlock.style.color = `${cars[i].color}`;
+      race.innerHTML = `${startStopBtns}${finishFlag}`;
+      race.appendChild(carBlock);
+      arrBlocks.push(carBlock);
+      racingBlock.appendChild(race);
 
-    btnClick(race, carBlock, arrBlocks, color);
+      btnClick(race, carBlock, arrBlocks, color);
+    }
+  }
+  if (!cars.length) {
+    const errorTitle = <HTMLElement>document.createElement('h2');
+    const errorText = <HTMLElement>document.createElement('p');
+    const errorBtn = <HTMLButtonElement>document.createElement('button');
+    errorTitle.className = 'racing__error';
+    errorText.className = 'racing__error-text';
+    errorBtn.className = 'racing__error-btn';
+    errorTitle.innerText = 'Server error!';
+    errorText.innerText = 'The first server start can take up to 40 seconds! Please click on the button.';
+    errorBtn.innerText = 'reload';
+    racingBlock.className = 'racing__block-reload';
+    errorBtn.addEventListener('click', () => {
+      location.reload();
+    });
+    racingBlock.appendChild(errorTitle);
+    racingBlock.appendChild(errorText);
+    racingBlock.appendChild(errorBtn);
   }
   return racingBlock;
 };
@@ -105,14 +125,14 @@ export const updateCars = async (): Promise<void> => {
   } else {
     btnRight.removeAttribute('disabled');
   }
-  if (pageNum <= StartPage.startpage) {
+  if (pageNum <= StartPage.startPage) {
     btnLeft.setAttribute('disabled', 'disabled');
-    pageNum = StartPage.startpage;
+    pageNum = StartPage.startPage;
     countPAge.innerText = `${pageNum}`;
   } else {
     btnLeft.removeAttribute('disabled');
   }
-  Promise.any([getPAge(Number(pageNum))]).then((res) => {
+  Promise.any([getPage(Number(pageNum))]).then((res) => {
     main.innerHTML = '';
     main.appendChild(updateHasCar(res));
   });
@@ -120,7 +140,7 @@ export const updateCars = async (): Promise<void> => {
 export const createCars = async (): Promise<HTMLElement> => {
   const main: HTMLElement = document.createElement('main');
   main.className = 'main';
-  Promise.any([getPAge(1)]).then((res) => {
+  Promise.any([getPage(1)]).then((res) => {
     main.appendChild(updateHasCar(res));
   });
   setTimeout(() => {
@@ -133,7 +153,7 @@ export const getCreateCar = async () => {
   const countPAge = <HTMLElement>document.querySelector('#page-title span');
   const main = <HTMLElement>document.querySelector('.main');
   const pageNum = Number(countPAge.innerText);
-  const response: CarsAttribute[] = await getPAge(Number(pageNum));
+  const response: CarsAttribute[] = await getPage(Number(pageNum));
   const genCar = updateHasCar(response);
   Promise.any([getCountAllCars()]).then((res) => {
     if (res.length >= 0 && res.length < 208) {

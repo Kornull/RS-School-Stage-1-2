@@ -24,10 +24,11 @@
   "rules": {
     "no-debugger": "off",
     "no-explicit-any": "off",
-    "no-console": 2,
+    "no-console": "warn",
     "class-methods-use-this": "off",
     "@typescript-eslint/no-explicit-any": 2,
     "import/prefer-default-export": "off",
+    "no-restricted-globals": "off",
     "no-plusplus": 0
   },
   "ignorePatterns": [

@@ -29,8 +29,10 @@ export const garageLink = async (): Promise<HTMLElement> => {
   const form: HTMLDivElement = getFormGarage();
   const main: HTMLElement = await createCars();
   const popupBlock: HTMLDivElement = getPopup();
-  garage.append(form);
-  garage.appendChild(main);
+  if (main !== null) {
+    garage.append(form);
+    garage.appendChild(main);
+  }
   garage.appendChild(popupBlock);
   const num = <HTMLElement>form.querySelector('#page-title span');
 

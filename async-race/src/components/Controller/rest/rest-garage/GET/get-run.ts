@@ -7,13 +7,15 @@ const str = (queryS: Key[] = []): string => {
   return '';
 };
 
-export const getCountCarsPage = async (queryString: string): Promise<CarsAttribute[]> => {
+export const getCountCarsPage = async (queryString: string): Promise<CarsAttribute[] | []> => {
   const response: Response = await fetch(`${Urls.garage}${queryString}`);
-
-  return response.json();
+  if (response.ok) {
+    return response.json();
+  }
+  return [];
 };
 
-export const getPAge = async (num: number): Promise<CarsAttribute[]> => {
+export const getPage = async (num: number): Promise<CarsAttribute[]> => {
   const page: Key = {
     key: '_page',
     value: num,
@@ -28,10 +30,10 @@ export const getPAge = async (num: number): Promise<CarsAttribute[]> => {
 
 export const getCountAllCars = async (): Promise<CarsAttribute[]> => {
   const response: Response = await fetch(`${Urls.garage}`);
-  const countPAge: HTMLElement | null = document.querySelector('#page-count-cars span');
+  const countPage: HTMLElement | null = document.querySelector('#page-count-cars span');
   const data: CarsAttribute[] = await response.json();
-  if (countPAge !== null) {
-    countPAge.innerText = `${data.length}`;
+  if (countPage !== null) {
+    countPage.innerText = `${data.length || 0}`;
   }
 
   return data;
