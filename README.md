@@ -1,27 +1,7 @@
 # kornull-JSFE2022Q1
-## Async-race
+# Tasks completed in the course JavaScript/Frontend | Stage 1/2
 
-### Stack
-
-+ Typescript
-+ SCSS
-+ Webpack
-+ requestAnimationFrame
-
-### Details
-
-+ spa
-+ api calls to the server
-+ animation
-+ creating / deleting cars
-+ changing the characteristics of cars
-+ leaderboard, sorting winners by several parameters
-+ race reset
-+ mass rut
-+ race on selected cars
-
-
-### Start instructions:
-
-+ Go to [deploy](https://kornull-async.netlify.app/)
-+ A server delay for a few seconds is possible
+## [Async-race](https://github.com/Kornull/RS-School-Stage-1-2/tree/asynk-race) 
+## [News-api](https://github.com/Kornull/RS-School-Stage-1-2/tree/news-api)
+## [Shelter](https://github.com/Kornull/Shelter)
+## [Online-store](https://github.com/Kornull/Online-store)
